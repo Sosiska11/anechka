@@ -5,8 +5,6 @@ import {
   MapPin,
   FileText,
   BookOpen,
-  CheckCircle2,
-  XCircle,
   HelpCircle,
   ChevronRight,
   Microscope,
@@ -21,9 +19,6 @@ interface LessonCardProps {
 }
 
 export const LessonCard: React.FC<LessonCardProps> = ({ lesson, onClick }) => {
-  const isCompleted = lesson.status === 'completed';
-  const isCancelled = lesson.status === 'cancelled';
-
   return (
     <div
       onClick={onClick}
@@ -34,15 +29,9 @@ export const LessonCard: React.FC<LessonCardProps> = ({ lesson, onClick }) => {
           onClick();
         }
       }}
-      className={`relative bg-white rounded-2xl p-4 border transition-all duration-150 select-none cursor-pointer active:scale-[0.98] shadow-xs hover:shadow-md ${
-        isCancelled
-          ? 'opacity-60 bg-slate-50/80 border-slate-200'
-          : isCompleted
-          ? 'border-emerald-200/90 bg-white'
-          : 'border-slate-200/80 hover:border-emerald-400'
-      }`}
+      className="relative bg-white rounded-2xl p-4 border border-slate-200/80 hover:border-emerald-400 transition-all duration-150 select-none cursor-pointer active:scale-[0.98] shadow-xs hover:shadow-md"
     >
-      {/* Верхняя строка: Номер урока, время звонка, статус */}
+      {/* Верхняя строка: Номер урока и время звонка */}
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-2">
           {/* Номер урока */}
@@ -57,27 +46,7 @@ export const LessonCard: React.FC<LessonCardProps> = ({ lesson, onClick }) => {
           </span>
         </div>
 
-        {/* Статус урока */}
-        <div className="flex items-center gap-1.5">
-          {isCompleted && (
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
-              <CheckCircle2 className="w-3 h-3" />
-              Проведён
-            </span>
-          )}
-          {isCancelled && (
-            <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded-full border border-rose-200/60">
-              <XCircle className="w-3 h-3" />
-              Отменён
-            </span>
-          )}
-          {!isCompleted && !isCancelled && (
-            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-slate-400 bg-slate-50 px-2 py-0.5 rounded-full">
-              Запланирован
-            </span>
-          )}
-          <ChevronRight className="w-4 h-4 text-slate-300 ml-0.5" />
-        </div>
+        <ChevronRight className="w-4 h-4 text-slate-300" />
       </div>
 
       {/* Основная строка: Класс и кабинет */}
@@ -127,11 +96,7 @@ export const LessonCard: React.FC<LessonCardProps> = ({ lesson, onClick }) => {
       {/* Тема урока */}
       <div className="mt-2.5 pt-2 border-t border-slate-100">
         {lesson.topic ? (
-          <p
-            className={`text-sm font-semibold leading-snug ${
-              isCancelled ? 'line-through text-slate-400' : 'text-slate-800'
-            }`}
-          >
+          <p className="text-sm font-semibold leading-snug text-slate-800">
             {lesson.topic}
           </p>
         ) : (

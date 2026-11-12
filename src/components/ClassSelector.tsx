@@ -102,3 +102,4 @@ export const ClassSelector: React.FC<ClassSelectorProps> = ({ value, onChange })
     </div>
   );
 };
+

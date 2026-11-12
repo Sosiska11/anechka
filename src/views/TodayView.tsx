@@ -92,7 +92,6 @@ export const TodayView: React.FC<TodayViewProps> = ({
   const capitalizedDateTitle =
     fullDateTitle.charAt(0).toUpperCase() + fullDateTitle.slice(1);
 
-  const completedCount = lessons.filter((l) => l.status === 'completed').length;
   const withTopicCount = lessons.filter((l) => l.topic.trim().length > 0).length;
 
   return (
@@ -133,8 +132,8 @@ export const TodayView: React.FC<TodayViewProps> = ({
                     : lessons.length < 5
                     ? 'урока'
                     : 'уроков'
-                } • Темы: ${withTopicCount}/${lessons.length} • Проведено: ${completedCount}/${lessons.length}`
-              : 'Нет запланированных уроков'}
+                } • Заполнено тем: ${withTopicCount}/${lessons.length}`
+              : 'Уроков на этот день нет'}
           </p>
         </div>
 

@@ -37,7 +37,7 @@ export interface LessonInstance {
   lessonType: LessonType; // Обычный / Лабораторная / Практическая / Контрольная
   homework: string;     // Домашнее задание
   notes: string;        // Личные заметки
-  status: 'planned' | 'completed' | 'cancelled';
+  status?: 'planned' | 'completed' | 'cancelled';
   isExtra?: boolean;    // true, если это разовый урок / замена вне шаблона
 }
 
@@ -69,7 +69,7 @@ export interface DisplayLesson {
   lessonType: LessonType;      // Тип урока
   homework: string;            // Домашнее задание
   notes: string;               // Заметки
-  status: 'planned' | 'completed' | 'cancelled';
+  status?: 'planned' | 'completed' | 'cancelled';
   isExtra?: boolean;
   isVirtual: boolean;          // true, если урок сгенерирован по шаблону и еще не сохранен как экземпляр
 }

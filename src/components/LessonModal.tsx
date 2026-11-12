@@ -2,9 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   X,
-  CheckCircle2,
   Clock,
-  XCircle,
   BookOpen,
   FileText,
   ArrowRightLeft,
@@ -36,7 +34,6 @@ export const LessonModal: React.FC<LessonModalProps> = ({
   const [lessonType, setLessonType] = useState<LessonType>('regular');
   const [homework, setHomework] = useState('');
   const [notes, setNotes] = useState('');
-  const [status, setStatus] = useState<'planned' | 'completed' | 'cancelled'>('planned');
   const [room, setRoom] = useState('');
 
   useEffect(() => {
@@ -46,7 +43,6 @@ export const LessonModal: React.FC<LessonModalProps> = ({
       setLessonType(lesson.lessonType || 'regular');
       setHomework(lesson.homework || '');
       setNotes(lesson.notes || '');
-      setStatus(lesson.status || 'planned');
       setRoom(lesson.room || '');
     }
   }, [lesson]);
@@ -68,7 +64,7 @@ export const LessonModal: React.FC<LessonModalProps> = ({
       lessonType,
       homework: homework.trim(),
       notes: notes.trim(),
-      status,
+      status: lesson.status,
       isExtra: lesson.isExtra,
     };
 
@@ -233,53 +229,7 @@ export const LessonModal: React.FC<LessonModalProps> = ({
             />
           </div>
 
-          {/* 6. Статус урока */}
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
-              Статус урока
-            </label>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                type="button"
-                onClick={() => setStatus('planned')}
-                className={`py-2 px-1 rounded-xl text-xs font-bold border transition-all ${
-                  status === 'planned'
-                    ? 'bg-slate-800 text-white border-slate-800 shadow-xs'
-                    : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Запланирован
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setStatus('completed')}
-                className={`py-2 px-1 rounded-xl text-xs font-bold border flex items-center justify-center gap-1 transition-all ${
-                  status === 'completed'
-                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
-                    : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Проведён</span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => setStatus('cancelled')}
-                className={`py-2 px-1 rounded-xl text-xs font-bold border flex items-center justify-center gap-1 transition-all ${
-                  status === 'cancelled'
-                    ? 'bg-rose-600 text-white border-rose-600 shadow-xs'
-                    : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                <XCircle className="w-3.5 h-3.5" />
-                <span>Отменён</span>
-              </button>
-            </div>
-          </div>
-
-          {/* 7. Кнопка «Перенести тему на следующий урок» */}
+          {/* 6. Кнопка «Перенести тему на следующий урок» */}
           {onTransferTopic && (
             <div className="pt-2">
               <button

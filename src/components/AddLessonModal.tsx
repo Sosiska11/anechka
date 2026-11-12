@@ -43,7 +43,6 @@ export const AddLessonModal: React.FC<AddLessonModalProps> = ({
       lessonType,
       homework: homework.trim(),
       notes: 'Дополнительный урок / замена',
-      status: 'planned',
       isExtra: true,
     };
 
