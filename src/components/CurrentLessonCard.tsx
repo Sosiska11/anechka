@@ -120,18 +120,18 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
           <div>
             <div className="flex items-center gap-2">
               <span
-                className={`text-xs font-black px-2 py-0.5 rounded-md flex items-center justify-center shadow-xs ${
+                className={`text-xs font-black px-2 py-0.5 rounded-md flex items-center justify-center shadow-xs tracking-tight ${
                   isCurrent ? 'bg-white text-emerald-700' : 'bg-emerald-600 text-white'
                 }`}
               >
-                ?
+                {activeLesson.className || '?'}
               </span>
               <h3
                 className={`text-base font-bold tracking-tight ${
                   isCurrent ? 'text-white' : 'text-slate-800'
                 }`}
               >
-                Класс ?
+                {activeLesson.className ? `${activeLesson.className} класс` : 'Класс ?'}
               </h3>
             </div>
 

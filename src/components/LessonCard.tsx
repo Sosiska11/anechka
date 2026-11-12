@@ -80,16 +80,16 @@ export const LessonCard: React.FC<LessonCardProps> = ({ lesson, onClick }) => {
         </div>
       </div>
 
-      {/* Основная строка: Знак «?» вместо класса */}
+      {/* Основная строка: Класс и кабинет */}
       <div className="flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2 min-w-0">
-          {/* Знак «?» вместо класса */}
-          <span className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
-            ?
+        <div className="flex items-center gap-2.5 min-w-0">
+          {/* Бейдж класса */}
+          <span className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs tracking-tight">
+            {lesson.className || '?'}
           </span>
 
-          <span className="text-sm font-bold text-slate-800">
-            Класс ?
+          <span className="text-base font-bold text-slate-800">
+            {lesson.className ? `${lesson.className} класс` : 'Класс ?'}
           </span>
         </div>
 

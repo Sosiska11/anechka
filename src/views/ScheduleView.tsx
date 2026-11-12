@@ -31,9 +31,10 @@ export const ScheduleView: React.FC = () => {
   const handleSetSlot = (
     dayOfWeek: 1 | 2 | 3 | 4 | 5 | 6,
     lessonNumber: number,
+    className?: string,
     roomOverride?: string
   ) => {
-    storageService.setTemplateSlot(dayOfWeek, lessonNumber, roomOverride);
+    storageService.setTemplateSlot(dayOfWeek, lessonNumber, className, roomOverride);
     notificationService.scheduleNext7Days();
     refreshData();
     showToast(`Урок ${lessonNumber} успешно сохранён в шаблоне недели`);

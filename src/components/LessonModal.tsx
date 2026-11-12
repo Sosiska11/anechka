@@ -14,6 +14,7 @@ import {
   FileSpreadsheet,
 } from 'lucide-react';
 import { DisplayLesson, LessonInstance, LessonType } from '../types';
+import { ClassSelector } from './ClassSelector';
 
 interface LessonModalProps {
   lesson: DisplayLesson | null;
@@ -30,6 +31,7 @@ export const LessonModal: React.FC<LessonModalProps> = ({
   onSave,
   onTransferTopic,
 }) => {
+  const [className, setClassName] = useState('');
   const [topic, setTopic] = useState('');
   const [lessonType, setLessonType] = useState<LessonType>('regular');
   const [homework, setHomework] = useState('');
@@ -39,6 +41,7 @@ export const LessonModal: React.FC<LessonModalProps> = ({
 
   useEffect(() => {
     if (lesson) {
+      setClassName(lesson.className || '');
       setTopic(lesson.topic || '');
       setLessonType(lesson.lessonType || 'regular');
       setHomework(lesson.homework || '');
@@ -59,6 +62,7 @@ export const LessonModal: React.FC<LessonModalProps> = ({
       id: instanceId,
       date: lesson.date,
       lessonNumber: lesson.lessonNumber,
+      className: className.trim() || undefined,
       room: room.trim() || lesson.room,
       topic: topic.trim(),
       lessonType,
@@ -91,12 +95,15 @@ export const LessonModal: React.FC<LessonModalProps> = ({
         {/* Шапка модалки */}
         <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shadow-xs">
-              ?
+            <span className="min-w-8 h-8 px-2 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shadow-xs">
+              {className || lesson.className || '?'}
             </span>
             <div>
               <h2 className="text-base font-bold text-slate-800 leading-tight">
-                Урок №{lesson.lessonNumber}
+                {className || lesson.className
+                  ? `${className || lesson.className} класс`
+                  : 'Класс ?'}{' '}
+                • Урок №{lesson.lessonNumber}
               </h2>
               <div className="flex items-center gap-1.5 text-xs text-slate-400 font-medium">
                 <Clock className="w-3 h-3 text-slate-400" />
@@ -118,7 +125,12 @@ export const LessonModal: React.FC<LessonModalProps> = ({
 
         {/* Тело формы со скроллом */}
         <div className="p-5 space-y-4 overflow-y-auto">
-          {/* 1. Тип урока биологии */}
+          {/* Выбор класса (5–11, А–Е) */}
+          <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80">
+            <ClassSelector value={className} onChange={setClassName} />
+          </div>
+
+          {/* 1. Тип урока */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
               Тип урока

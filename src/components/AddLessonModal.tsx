@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { X, Plus, Microscope, FlaskConical, FileSpreadsheet, BookOpen } from 'lucide-react';
 import { BellSlot, LessonInstance, LessonType } from '../types';
+import { ClassSelector } from './ClassSelector';
 
 interface AddLessonModalProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export const AddLessonModal: React.FC<AddLessonModalProps> = ({
   onClose,
   onAdd,
 }) => {
+  const [className, setClassName] = useState('7А');
   const [lessonNumber, setLessonNumber] = useState<number>(1);
   const [lessonType, setLessonType] = useState<LessonType>('regular');
   const [topic, setTopic] = useState('');
@@ -35,6 +37,7 @@ export const AddLessonModal: React.FC<AddLessonModalProps> = ({
       id: `extra-${dateStr}-${lessonNumber}-${Date.now()}`,
       date: dateStr,
       lessonNumber,
+      className: className.trim() || undefined,
       room: room.trim() || defaultRoom || '304',
       topic: topic.trim(),
       lessonType,
@@ -59,12 +62,12 @@ export const AddLessonModal: React.FC<AddLessonModalProps> = ({
       <div className="relative w-full max-w-md bg-white rounded-t-3xl sm:rounded-3xl shadow-2xl z-10 max-h-[90vh] flex flex-col overflow-hidden animate-in slide-in-from-bottom duration-200">
         <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <span className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shadow-xs">
-              ?
+            <span className="min-w-8 h-8 px-2 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shadow-xs">
+              {className || '?'}
             </span>
             <div>
               <h2 className="text-base font-bold text-slate-800">
-                Добавить урок
+                {className ? `${className} класс` : 'Добавить урок'}
               </h2>
               <p className="text-xs text-slate-400 font-medium">Дата: {dateStr}</p>
             </div>
@@ -80,6 +83,11 @@ export const AddLessonModal: React.FC<AddLessonModalProps> = ({
         </div>
 
         <form onSubmit={handleSubmit} className="p-5 space-y-4 overflow-y-auto">
+          {/* Выбор класса (5–11, А–Е) */}
+          <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80">
+            <ClassSelector value={className} onChange={setClassName} />
+          </div>
+
           {/* Номер урока */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">

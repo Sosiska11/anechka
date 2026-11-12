@@ -386,7 +386,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ onNavigateToDate }) 
                               key={lesson.id}
                               className="inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-lg bg-emerald-600 text-white shadow-2xs"
                             >
-                              <span>?</span>
+                              <span>{lesson.className || '?'}</span>
                               {lesson.lessonType === 'lab' && (
                                 <Microscope className="w-3 h-3 text-white/90" />
                               )}
@@ -508,12 +508,12 @@ export const CalendarView: React.FC<CalendarViewProps> = ({ onNavigateToDate }) 
                             className="p-3 bg-slate-50/80 rounded-2xl border border-slate-100 flex items-center justify-between text-xs"
                           >
                             <div className="flex items-center gap-2.5 min-w-0">
-                              <span className="w-7 h-7 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs">
-                                ?
+                              <span className="min-w-7 h-7 px-1.5 rounded-lg bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-2xs">
+                                {lesson.className || '?'}
                               </span>
                               <div className="min-w-0">
                                 <p className="font-bold text-slate-800 truncate">
-                                  Класс ?
+                                  {lesson.className ? `${lesson.className} класс` : 'Класс ?'}
                                 </p>
                                 <p className="text-[11px] text-slate-500 truncate">
                                   {lesson.topic || 'Тема не заполнена'}

@@ -15,7 +15,7 @@ const STORAGE_KEYS = {
   LESSONS: 'teacher_planner_lessons',
   HOLIDAYS: 'teacher_planner_holidays',
   SETTINGS: 'teacher_planner_settings',
-  INITIALIZED: 'teacher_planner_initialized_v7_step2',
+  INITIALIZED: 'teacher_planner_initialized_v9_grades5_11',
 };
 
 // Базовая сетка звонков школы (1–8 уроки по 45 мин)
@@ -30,40 +30,40 @@ export const DEFAULT_BELLS: BellSlot[] = [
   { lessonNumber: 8, startTime: '15:20', endTime: '16:05' },
 ];
 
-// Базовый шаблон недели для учителя биологии (Пн–Сб)
+// Базовый шаблон недели с классами 5–11 (Пн–Сб)
 export const DEFAULT_TEMPLATE: ScheduleTemplateItem[] = [
   // Понедельник (1)
-  { id: 'tmpl-1-1', dayOfWeek: 1, lessonNumber: 1 },
-  { id: 'tmpl-1-2', dayOfWeek: 1, lessonNumber: 2 },
-  { id: 'tmpl-1-3', dayOfWeek: 1, lessonNumber: 3 },
-  { id: 'tmpl-1-4', dayOfWeek: 1, lessonNumber: 4 },
+  { id: 'tmpl-1-1', dayOfWeek: 1, lessonNumber: 1, className: '5А' },
+  { id: 'tmpl-1-2', dayOfWeek: 1, lessonNumber: 2, className: '7А' },
+  { id: 'tmpl-1-3', dayOfWeek: 1, lessonNumber: 3, className: '8Б' },
+  { id: 'tmpl-1-4', dayOfWeek: 1, lessonNumber: 4, className: '10А' },
 
   // Вторник (2)
-  { id: 'tmpl-2-2', dayOfWeek: 2, lessonNumber: 2 },
-  { id: 'tmpl-2-3', dayOfWeek: 2, lessonNumber: 3 },
-  { id: 'tmpl-2-4', dayOfWeek: 2, lessonNumber: 4 },
-  { id: 'tmpl-2-5', dayOfWeek: 2, lessonNumber: 5 },
+  { id: 'tmpl-2-2', dayOfWeek: 2, lessonNumber: 2, className: '6А' },
+  { id: 'tmpl-2-3', dayOfWeek: 2, lessonNumber: 3, className: '8А' },
+  { id: 'tmpl-2-4', dayOfWeek: 2, lessonNumber: 4, className: '9Б' },
+  { id: 'tmpl-2-5', dayOfWeek: 2, lessonNumber: 5, className: '11А' },
 
   // Среда (3)
-  { id: 'tmpl-3-1', dayOfWeek: 3, lessonNumber: 1 },
-  { id: 'tmpl-3-2', dayOfWeek: 3, lessonNumber: 2 },
-  { id: 'tmpl-3-3', dayOfWeek: 3, lessonNumber: 3 },
+  { id: 'tmpl-3-1', dayOfWeek: 3, lessonNumber: 1, className: '5Б' },
+  { id: 'tmpl-3-2', dayOfWeek: 3, lessonNumber: 2, className: '7Б' },
+  { id: 'tmpl-3-3', dayOfWeek: 3, lessonNumber: 3, className: '9А' },
 
   // Четверг (4)
-  { id: 'tmpl-4-1', dayOfWeek: 4, lessonNumber: 1 },
-  { id: 'tmpl-4-2', dayOfWeek: 4, lessonNumber: 2 },
-  { id: 'tmpl-4-3', dayOfWeek: 4, lessonNumber: 3 },
-  { id: 'tmpl-4-4', dayOfWeek: 4, lessonNumber: 4 },
+  { id: 'tmpl-4-1', dayOfWeek: 4, lessonNumber: 1, className: '6Б' },
+  { id: 'tmpl-4-2', dayOfWeek: 4, lessonNumber: 2, className: '7А' },
+  { id: 'tmpl-4-3', dayOfWeek: 4, lessonNumber: 3, className: '8Б' },
+  { id: 'tmpl-4-4', dayOfWeek: 4, lessonNumber: 4, className: '10А' },
 
   // Пятница (5)
-  { id: 'tmpl-5-2', dayOfWeek: 5, lessonNumber: 2 },
-  { id: 'tmpl-5-3', dayOfWeek: 5, lessonNumber: 3 },
-  { id: 'tmpl-5-4', dayOfWeek: 5, lessonNumber: 4 },
-  { id: 'tmpl-5-5', dayOfWeek: 5, lessonNumber: 5 },
+  { id: 'tmpl-5-2', dayOfWeek: 5, lessonNumber: 2, className: '5А' },
+  { id: 'tmpl-5-3', dayOfWeek: 5, lessonNumber: 3, className: '8А' },
+  { id: 'tmpl-5-4', dayOfWeek: 5, lessonNumber: 4, className: '10Б' },
+  { id: 'tmpl-5-5', dayOfWeek: 5, lessonNumber: 5, className: '11А' },
 
   // Суббота (6)
-  { id: 'tmpl-6-1', dayOfWeek: 6, lessonNumber: 1 },
-  { id: 'tmpl-6-2', dayOfWeek: 6, lessonNumber: 2 },
+  { id: 'tmpl-6-1', dayOfWeek: 6, lessonNumber: 1, className: '9Б' },
+  { id: 'tmpl-6-2', dayOfWeek: 6, lessonNumber: 2, className: '11Б' },
 ];
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -73,7 +73,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   showSaturday: true,
 };
 
-// Генерация реалистичных демо-уроков биологии на текущую неделю
+// Генерация реалистичных демо-уроков на текущую неделю
 export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
   const today = new Date();
   const monday = startOfWeek(today, { weekStartsOn: 1 });
@@ -89,6 +89,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${monStr}-1`,
       date: monStr,
       lessonNumber: 1,
+      className: '5А',
       room: '304',
       topic: 'Увеличительные приборы: устройство светового микроскопа',
       lessonType: 'lab',
@@ -100,6 +101,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${monStr}-2`,
       date: monStr,
       lessonNumber: 2,
+      className: '7А',
       room: '304',
       topic: 'Тип Членистоногие: классификация и общие признаки',
       lessonType: 'regular',
@@ -111,6 +113,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${monStr}-3`,
       date: monStr,
       lessonNumber: 3,
+      className: '8Б',
       room: '304',
       topic: 'Кровь: форменные элементы и функции плазмы',
       lessonType: 'lab',
@@ -124,6 +127,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${tueStr}-2`,
       date: tueStr,
       lessonNumber: 2,
+      className: '6А',
       room: '304',
       topic: 'Моногибридное скрещивание. Первый закон Менделя',
       lessonType: 'regular',
@@ -135,6 +139,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${tueStr}-3`,
       date: tueStr,
       lessonNumber: 3,
+      className: '8А',
       room: '304',
       topic: 'Строение растительной клетки. Пластиды и вакуоли',
       lessonType: 'regular',
@@ -148,6 +153,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${wedStr}-1`,
       date: wedStr,
       lessonNumber: 1,
+      className: '5Б',
       room: '304',
       topic: 'Иммунная система организма. Вакцинация и сыворотки',
       lessonType: 'regular',
@@ -159,6 +165,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${wedStr}-2`,
       date: wedStr,
       lessonNumber: 2,
+      className: '7Б',
       room: '304',
       topic: 'Нуклеиновые кислоты: структура и репликация ДНК',
       lessonType: 'regular',
@@ -172,6 +179,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${thuStr}-1`,
       date: thuStr,
       lessonNumber: 1,
+      className: '6Б',
       room: '304',
       topic: 'Клеточное строение листа. Хлоропласты и устьица',
       lessonType: 'lab',
@@ -183,6 +191,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${thuStr}-2`,
       date: thuStr,
       lessonNumber: 2,
+      className: '7А',
       room: '304',
       topic: 'Класс Насекомые: органы чувств и ротовые аппараты',
       lessonType: 'lab',
@@ -194,6 +203,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${thuStr}-3`,
       date: thuStr,
       lessonNumber: 3,
+      className: '8Б',
       room: '304',
       topic: 'Строение сердца и фазы сердечного цикла',
       lessonType: 'practical',
@@ -205,6 +215,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${thuStr}-4`,
       date: thuStr,
       lessonNumber: 4,
+      className: '10А',
       room: '304',
       topic: 'Митоз и мейоз: фазы деления эукариотической клетки',
       lessonType: 'regular',
@@ -218,6 +229,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${friStr}-2`,
       date: friStr,
       lessonNumber: 2,
+      className: '5А',
       room: '304',
       topic: 'Типы развития насекомых: полное и неполное превращение',
       lessonType: 'regular',
@@ -229,6 +241,7 @@ export function generateDemoLessonsForCurrentWeek(): LessonInstance[] {
       id: `demo-${friStr}-3`,
       date: friStr,
       lessonNumber: 3,
+      className: '8А',
       room: '304',
       topic: 'Контрольная работа: Законы Менделя и генетика пола',
       lessonType: 'test',
@@ -295,6 +308,7 @@ class StorageService {
   public setTemplateSlot(
     dayOfWeek: 1 | 2 | 3 | 4 | 5 | 6,
     lessonNumber: number,
+    className?: string,
     roomOverride?: string
   ): void {
     const template = this.getTemplate();
@@ -306,6 +320,7 @@ class StorageService {
       id: `tmpl-${dayOfWeek}-${lessonNumber}`,
       dayOfWeek,
       lessonNumber,
+      className: className?.trim() || undefined,
       roomOverride: roomOverride?.trim() || undefined,
     };
 
@@ -424,7 +439,7 @@ class StorageService {
   public exportBackup(): string {
     const data = {
       app: 'BioPlanner',
-      version: '2.0-offline',
+      version: '3.0-classes',
       createdAt: new Date().toISOString(),
       bells: this.getBells(),
       template: this.getTemplate(),
@@ -487,12 +502,16 @@ class StorageService {
     const savedLessons = this.getLessons().filter((l) => l.date === dateStr);
 
     const bellMap = new Map<number, BellSlot>(bells.map((b) => [b.lessonNumber, b]));
+    const templateMap = new Map<number, ScheduleTemplateItem>(
+      template.map((t) => [t.lessonNumber, t])
+    );
     const displayLessons: DisplayLesson[] = [];
     const usedLessonNumbers = new Set<number>();
 
     // 1. Сохранённые уроки на эту дату
     for (const saved of savedLessons) {
       const bell = bellMap.get(saved.lessonNumber);
+      const tmpl = templateMap.get(saved.lessonNumber);
       usedLessonNumbers.add(saved.lessonNumber);
 
       displayLessons.push({
@@ -501,6 +520,7 @@ class StorageService {
         lessonNumber: saved.lessonNumber,
         startTime: bell ? bell.startTime : '--:--',
         endTime: bell ? bell.endTime : '--:--',
+        className: saved.className || tmpl?.className || undefined,
         room: saved.room || defaultRoom,
         topic: saved.topic || '',
         lessonType: saved.lessonType || 'regular',
@@ -523,6 +543,7 @@ class StorageService {
           lessonNumber: tmpl.lessonNumber,
           startTime: bell ? bell.startTime : '--:--',
           endTime: bell ? bell.endTime : '--:--',
+          className: tmpl.className || undefined,
           room: tmpl.roomOverride || defaultRoom,
           topic: '',
           lessonType: 'regular',
@@ -541,7 +562,7 @@ class StorageService {
   }
 
   /**
-   * Быстрый перенос темы урока на следующий ближайший урок по расписанию
+   * Быстрый перенос темы урока на следующий урок того же класса по расписанию
    */
   public transferTopicToNextLesson(currentLesson: DisplayLesson): {
     success: boolean;
@@ -556,8 +577,9 @@ class StorageService {
     const template = this.getTemplate();
     const holidays = this.getHolidays();
     const settings = this.getSettings();
+    const targetClass = currentLesson.className;
 
-    for (let dayOffset = 1; dayOffset <= 21; dayOffset++) {
+    for (let dayOffset = 1; dayOffset <= 28; dayOffset++) {
       const candidateDate = addDays(startDate, dayOffset);
       const dateStr = format(candidateDate, 'yyyy-MM-dd');
 
@@ -567,8 +589,12 @@ class StorageService {
 
       const dayOfWeek = dayRaw as 1 | 2 | 3 | 4 | 5 | 6;
 
-      // 1. Проверяем сохраненные инстансы на будущий день
-      const savedForDay = this.getLessons().filter((l) => l.date === dateStr);
+      // 1. Проверяем сохраненные инстансы того же класса (или любого следующего, если класс не задан)
+      const savedForDay = this.getLessons().filter((l) => {
+        if (l.date !== dateStr) return false;
+        if (targetClass) return l.className === targetClass;
+        return true;
+      });
 
       if (savedForDay.length > 0) {
         const nextTarget = savedForDay[0];
@@ -587,21 +613,27 @@ class StorageService {
 
         this.markCurrentLessonTransferred(currentLesson, dateStr);
 
+        const classLabel = nextTarget.className ? `${nextTarget.className} класс` : 'урок';
         return {
           success: true,
           nextDate: dateStr,
-          message: `Тема перенесена на следующий урок (${dateStr}, урок №${nextTarget.lessonNumber})`,
+          message: `Тема перенесена на ${classLabel} (${dateStr}, №${nextTarget.lessonNumber})`,
         };
       }
 
       // 2. Проверяем шаблон расписания недели
-      const tmplItem = template.find((t) => t.dayOfWeek === dayOfWeek);
+      const tmplItem = template.find((t) => {
+        if (t.dayOfWeek !== dayOfWeek) return false;
+        if (targetClass) return t.className === targetClass;
+        return true;
+      });
 
       if (tmplItem) {
         const newInstance: LessonInstance = {
           id: `inst-${dateStr}-${tmplItem.lessonNumber}-${Date.now()}`,
           date: dateStr,
           lessonNumber: tmplItem.lessonNumber,
+          className: tmplItem.className || currentLesson.className,
           room: tmplItem.roomOverride || settings.defaultRoom || '304',
           topic: currentLesson.topic,
           lessonType: currentLesson.lessonType,
@@ -613,17 +645,18 @@ class StorageService {
 
         this.markCurrentLessonTransferred(currentLesson, dateStr);
 
+        const classLabel = newInstance.className ? `${newInstance.className} класс` : 'урок';
         return {
           success: true,
           nextDate: dateStr,
-          message: `Тема перенесена на следующий урок (${dateStr}, урок №${tmplItem.lessonNumber})`,
+          message: `Тема перенесена на ${classLabel} (${dateStr}, №${tmplItem.lessonNumber})`,
         };
       }
     }
 
     return {
       success: false,
-      message: 'Не найден следующий урок в расписании',
+      message: 'Не найден следующий урок этого класса в расписании',
     };
   }
 
@@ -640,6 +673,7 @@ class StorageService {
       id: instanceId,
       date: lesson.date,
       lessonNumber: lesson.lessonNumber,
+      className: lesson.className,
       room: lesson.room || '304',
       topic: lesson.topic,
       lessonType: lesson.lessonType,

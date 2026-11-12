@@ -10,6 +10,7 @@ import {
   X,
 } from 'lucide-react';
 import { BellSlot, ScheduleTemplateItem } from '../../types';
+import { ClassSelector } from '../ClassSelector';
 
 interface WeeklyTemplateTabProps {
   template: ScheduleTemplateItem[];
@@ -18,6 +19,7 @@ interface WeeklyTemplateTabProps {
   onSetSlot: (
     dayOfWeek: 1 | 2 | 3 | 4 | 5 | 6,
     lessonNumber: number,
+    className?: string,
     roomOverride?: string
   ) => void;
   onRemoveSlot: (dayOfWeek: 1 | 2 | 3 | 4 | 5 | 6, lessonNumber: number) => void;
@@ -41,6 +43,7 @@ export const WeeklyTemplateTab: React.FC<WeeklyTemplateTabProps> = ({
 }) => {
   const [selectedDay, setSelectedDay] = useState<1 | 2 | 3 | 4 | 5 | 6>(1);
   const [editingSlotNumber, setEditingSlotNumber] = useState<number | null>(null);
+  const [slotClassName, setSlotClassName] = useState<string>('7А');
   const [roomOverride, setRoomOverride] = useState<string>('');
 
   const dayItems = template.filter((t) => t.dayOfWeek === selectedDay);
@@ -52,6 +55,7 @@ export const WeeklyTemplateTab: React.FC<WeeklyTemplateTabProps> = ({
   const openSlotEditor = (lessonNumber: number) => {
     const existing = itemMap.get(lessonNumber);
     setEditingSlotNumber(lessonNumber);
+    setSlotClassName(existing?.className || '7А');
     setRoomOverride(existing?.roomOverride || '');
   };
 
@@ -60,6 +64,7 @@ export const WeeklyTemplateTab: React.FC<WeeklyTemplateTabProps> = ({
       onSetSlot(
         selectedDay,
         editingSlotNumber,
+        slotClassName.trim() || undefined,
         roomOverride.trim() ? roomOverride.trim() : undefined
       );
       setEditingSlotNumber(null);
@@ -144,15 +149,15 @@ export const WeeklyTemplateTab: React.FC<WeeklyTemplateTabProps> = ({
                     <span className="text-[9px] text-slate-400 font-medium mt-0.5">урок</span>
                   </div>
 
-                  {/* Знак «?» вместо класса */}
-                  <span className="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shrink-0 shadow-xs">
-                    ?
+                  {/* Класс */}
+                  <span className="w-10 h-10 rounded-xl bg-emerald-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
+                    {tmplItem.className || '?'}
                   </span>
 
-                  {/* Заголовок «Класс ?» и время */}
+                  {/* Заголовок класса и время */}
                   <div className="min-w-0">
                     <span className="text-sm font-bold text-slate-800">
-                      Класс ?
+                      {tmplItem.className ? `${tmplItem.className} класс` : 'Класс ?'}
                     </span>
 
                     <div className="flex items-center gap-2 mt-1 text-[11px] text-slate-500 font-medium">
@@ -245,14 +250,9 @@ export const WeeklyTemplateTab: React.FC<WeeklyTemplateTabProps> = ({
             </div>
 
             <div className="p-5 space-y-4 overflow-y-auto">
-              <div className="p-3.5 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-center gap-3">
-                <span className="w-8 h-8 rounded-xl bg-emerald-600 text-white font-black text-sm flex items-center justify-center shadow-xs">
-                  ?
-                </span>
-                <div>
-                  <p className="text-sm font-bold text-emerald-950">Класс ?</p>
-                  <p className="text-xs text-emerald-700/80">Постоянный еженедельный урок</p>
-                </div>
+              {/* Выбор класса (5–11, А–Е) */}
+              <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80">
+                <ClassSelector value={slotClassName} onChange={setSlotClassName} />
               </div>
 
               {/* Кабинет */}
