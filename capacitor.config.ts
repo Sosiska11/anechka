@@ -2,7 +2,7 @@ import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'com.biology.teacher.app',
-  appName: 'Биология',
+  appName: 'анечка приложение пользоваться бесплатно без интернета',
   webDir: 'dist',
   server: {
     androidScheme: 'https',

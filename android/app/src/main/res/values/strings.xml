@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Биология</string>
-    <string name="title_activity_main">Биология</string>
+    <string name="app_name">анечка приложение пользоваться бесплатно без интернета</string>
+    <string name="title_activity_main">анечка приложение пользоваться бесплатно без интернета</string>
     <string name="package_name">com.biology.teacher.app</string>
     <string name="custom_url_scheme">com.biology.teacher.app</string>
 </resources>
