@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import {
   RotateCcw,
+  Trash2,
   CheckCircle2,
   Download,
   Upload,
@@ -186,11 +187,28 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
     }
   };
 
-  // Сброс и перезагрузка демо-данных
-  const handleReset = () => {
+  // Полная очистка всех данных (начать с чистого листа)
+  const handleClearAll = () => {
     if (
       window.confirm(
-        'Сбросить все текущие изменения и перезагрузить стандартные демо-данные?'
+        'Очистить всё расписание и темы? Приложение станет полностью чистым для заполнения с нуля.'
+      )
+    ) {
+      storageService.clearAllData();
+      const newSettings = storageService.getSettings();
+      setSettings(newSettings);
+      setDefaultRoom(newSettings.defaultRoom || '304');
+      notificationService.scheduleNext7Days();
+      onResetData();
+      showNotification('Все данные очищены. Приложение готово к заполнению!');
+    }
+  };
+
+  // Перезагрузка демонстрационного расписания
+  const handleLoadDemo = () => {
+    if (
+      window.confirm(
+        'Загрузить демонстрационное расписание и темы уроков?'
       )
     ) {
       storageService.resetToDemoData();
@@ -459,23 +477,35 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
         </button>
       </div>
 
-      {/* Демо-данные */}
+      {/* Управление данными: Очистка и Демо-данные */}
       <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
         <h2 className="text-xs font-bold text-slate-700">
-          Демо-данные
+          Управление данными
         </h2>
 
         <p className="text-xs text-slate-500 leading-relaxed">
-          Загружает пример расписания с готовыми темами уроков и практическими работами.
+          Очистите все уроки и расписание, чтобы вести свои классы с чистого листа, или восстановите пример расписания:
         </p>
 
-        <button
-          onClick={handleReset}
-          className="w-full py-3 px-4 rounded-2xl bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 border border-slate-200 transition-all active:scale-95"
-        >
-          <RotateCcw className="w-4 h-4 text-emerald-600" />
-          <span>Сбросить и загрузить пример расписания</span>
-        </button>
+        <div className="space-y-2 pt-1">
+          {/* Главная кнопка: Полная очистка данных */}
+          <button
+            onClick={handleClearAll}
+            className="w-full py-3 px-4 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs flex items-center justify-center gap-2 border border-rose-200 transition-all active:scale-95"
+          >
+            <Trash2 className="w-4 h-4 text-rose-600" />
+            <span>Очистить всё (начать с чистого листа)</span>
+          </button>
+
+          {/* Второстепенная кнопка: Демо-данные */}
+          <button
+            onClick={handleLoadDemo}
+            className="w-full py-2.5 px-4 rounded-2xl bg-slate-50 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-200 text-slate-600 font-bold text-xs flex items-center justify-center gap-2 border border-slate-200 transition-all active:scale-95"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-slate-500" />
+            <span>Загрузить пример расписания</span>
+          </button>
+        </div>
       </div>
 
       {/* Подпись в самом низу экрана «Настройки» */}

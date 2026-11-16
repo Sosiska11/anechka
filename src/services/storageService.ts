@@ -268,6 +268,19 @@ class StorageService {
     localStorage.setItem(STORAGE_KEYS.INITIALIZED, 'true');
   }
 
+  /**
+   * Полная очистка данных: удаляет все демо-уроки, расписание и темы,
+   * оставляя приложение абсолютно чистым для заполнения с нуля.
+   */
+  public clearAllData(): void {
+    this.saveTemplate([]);
+    this.saveLessons([]);
+    this.saveHolidays([]);
+    this.saveBells(DEFAULT_BELLS);
+    this.saveSettings(DEFAULT_SETTINGS);
+    localStorage.setItem(STORAGE_KEYS.INITIALIZED, 'true');
+  }
+
   // --- Звонки (1–8 уроки) ---
   public getBells(): BellSlot[] {
     const raw = localStorage.getItem(STORAGE_KEYS.BELLS);
