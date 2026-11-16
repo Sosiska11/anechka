@@ -64,8 +64,8 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
           <CheckCircle2 className="w-5 h-5 text-emerald-600" />
         </div>
         <div className="text-xs">
-          <p className="font-bold text-slate-800">Уроки на сегодня закончились 🎉</p>
-          <p className="text-slate-500 mt-0.5">Можно отдохнуть или заглянуть в темы на завтра</p>
+          <p className="font-bold text-slate-800">Ура уроки на сегодня закончились</p>
+          <p className="text-slate-500 mt-0.5">Не забудьте заполнить остальные темы..</p>
         </div>
       </div>
     );
