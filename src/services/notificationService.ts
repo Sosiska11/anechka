@@ -201,6 +201,37 @@ class NotificationService {
       return { scheduledCount: 0 };
     }
   }
+
+  /**
+   * Отправка тестового напоминания через 3 секунды (для проверки работы на смартфоне)
+   */
+  public async sendTestNotification(): Promise<boolean> {
+    if (!this.isNative()) return false;
+
+    try {
+      const hasPerm = await this.requestPermissions();
+      if (!hasPerm) return false;
+
+      await LocalNotifications.schedule({
+        notifications: [
+          {
+            id: 99999,
+            title: 'Скоро урок (10:00) • Каб. 304',
+            body: 'Тема: Клеточное строение живых организмов',
+            channelId: 'biology_lessons',
+            schedule: {
+              at: new Date(Date.now() + 3000),
+              allowWhileIdle: true,
+            },
+          },
+        ],
+      });
+      return true;
+    } catch (e) {
+      console.warn('Error sending test notification:', e);
+      return false;
+    }
+  }
 }
 
 export const notificationService = new NotificationService();

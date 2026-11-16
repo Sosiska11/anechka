@@ -380,6 +380,29 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
             />
           </button>
         </div>
+
+        {/* Тестовое напоминание */}
+        <div className="pt-2 border-t border-slate-100">
+          <button
+            type="button"
+            onClick={async () => {
+              if (notificationService.isNative()) {
+                const ok = await notificationService.sendTestNotification();
+                if (ok) {
+                  showNotification('Тестовое напоминание сработает через 3 сек (сверните приложение)');
+                } else {
+                  showNotification('Разрешение на уведомления не предоставлено', 'error');
+                }
+              } else {
+                showNotification('Напоминания работают на смартфоне в приложении Android');
+              }
+            }}
+            className="w-full py-2.5 px-3 rounded-xl border border-emerald-200 bg-emerald-50/70 hover:bg-emerald-100 text-emerald-800 text-xs font-bold flex items-center justify-center gap-1.5 transition-all active:scale-95"
+          >
+            <Bell className="w-3.5 h-3.5 text-emerald-600" />
+            <span>Проверить напоминание (тест через 3 сек)</span>
+          </button>
+        </div>
       </div>
 
       {/* 4. Блок «Резервные копии» */}
