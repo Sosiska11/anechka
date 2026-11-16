@@ -156,7 +156,7 @@ export const TodayView: React.FC<TodayViewProps> = ({
             {holiday.label || 'Выходной день'}
           </h2>
           <p className="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-            В этот день уроков нет. Можно отдохнуть или вручную добавить урок/замену через кнопку выше.
+            В этот день уроков нет. Отдыхаем! ☕
           </p>
         </div>
       )}

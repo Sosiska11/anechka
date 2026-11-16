@@ -84,12 +84,12 @@ export const ScheduleView: React.FC = () => {
       </div>
 
       {/* Переключатель 2 подвкладок */}
-      <div className="flex bg-slate-200/80 p-1 rounded-2xl shadow-inner">
+      <div className="flex bg-slate-200/70 p-1 rounded-2xl">
         <button
           onClick={() => setActiveSubTab('template')}
           className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 select-none active:scale-95 ${
             activeSubTab === 'template'
-              ? 'bg-white text-emerald-800 shadow-sm ring-1 ring-slate-200/50'
+              ? 'bg-white text-emerald-800 shadow-xs'
               : 'text-slate-600 hover:text-slate-800'
           }`}
         >
@@ -101,7 +101,7 @@ export const ScheduleView: React.FC = () => {
           onClick={() => setActiveSubTab('bells')}
           className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 select-none active:scale-95 ${
             activeSubTab === 'bells'
-              ? 'bg-white text-emerald-800 shadow-sm ring-1 ring-slate-200/50'
+              ? 'bg-white text-emerald-800 shadow-xs'
               : 'text-slate-600 hover:text-slate-800'
           }`}
         >

@@ -54,7 +54,7 @@ export const Navigation: React.FC<NavigationProps> = ({ activeTab, onTabChange }
             >
               <div
                 className={`p-1.5 rounded-xl transition-all ${
-                  isActive ? 'bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200/50' : ''
+                  isActive ? 'bg-emerald-50 text-emerald-700' : ''
                 }`}
               >
                 <Icon className={`w-5 h-5 ${isActive ? 'stroke-[2.4]' : 'stroke-2'}`} />

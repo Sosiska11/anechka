@@ -4,7 +4,6 @@ import { isToday } from 'date-fns';
 import {
   Clock,
   MapPin,
-  Sparkles,
   CheckCircle2,
   Microscope,
   FlaskConical,
@@ -60,13 +59,13 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
 
   if (!activeLesson) {
     return (
-      <div className="mx-4 mt-3 p-3.5 bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-green-500/10 rounded-2xl border border-emerald-200/80 flex items-center gap-3">
+      <div className="mx-4 mt-3 p-3.5 bg-emerald-50/70 rounded-2xl border border-emerald-100/90 flex items-center gap-3">
         <div className="w-9 h-9 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
-          <CheckCircle2 className="w-5 h-5" />
+          <CheckCircle2 className="w-5 h-5 text-emerald-600" />
         </div>
         <div className="text-xs">
-          <p className="font-bold text-slate-800">Все уроки на сегодня завершены!</p>
-          <p className="text-slate-500 mt-0.5">Отличная работа, можно проверить темы уроков на завтра.</p>
+          <p className="font-bold text-slate-800">Уроки на сегодня закончились 🎉</p>
+          <p className="text-slate-500 mt-0.5">Можно отдохнуть или заглянуть в темы на завтра</p>
         </div>
       </div>
     );
@@ -77,35 +76,39 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
   return (
     <div
       onClick={() => onSelectLesson(activeLesson!)}
-      className="mx-4 mt-3 cursor-pointer group active:scale-[0.98] transition-all"
+      className="mx-4 mt-3 cursor-pointer group active:scale-[0.99] transition-all"
     >
       <div
-        className={`p-4 rounded-2xl border transition-all shadow-sm ${
+        className={`p-4 rounded-2xl border transition-all ${
           isCurrent
-            ? 'bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-700 text-white border-emerald-500/40 shadow-emerald-600/20 shadow-md ring-2 ring-emerald-500/30'
-            : 'bg-gradient-to-br from-white to-emerald-50/40 text-slate-800 border-emerald-200/80 shadow-xs'
+            ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+            : 'bg-white text-slate-800 border-slate-200/80 shadow-xs hover:border-emerald-300'
         }`}
       >
         {/* Верхняя строка статуса и времени */}
         <div className="flex items-center justify-between gap-2 mb-2.5">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <span
-              className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
+              className={`inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-0.5 rounded-full ${
                 isCurrent
-                  ? 'bg-white/20 text-white backdrop-blur-xs'
-                  : 'bg-emerald-100 text-emerald-800'
+                  ? 'bg-emerald-700/70 text-emerald-50'
+                  : 'bg-emerald-50 text-emerald-800'
               }`}
             >
-              <Sparkles className="w-3 h-3" />
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  isCurrent ? 'bg-emerald-300 animate-pulse' : 'bg-emerald-500'
+                }`}
+              />
               {isCurrent
-                ? `Идёт сейчас (осталось ${minutesDiff} мин)`
-                : `Следующий урок (через ${minutesDiff} мин)`}
+                ? `Идёт сейчас • осталось ${minutesDiff} мин`
+                : `Следующий урок • через ${minutesDiff} мин`}
             </span>
           </div>
 
           <div
-            className={`flex items-center gap-1 text-xs font-semibold ${
-              isCurrent ? 'text-emerald-100' : 'text-slate-500'
+            className={`flex items-center gap-1 text-xs font-medium ${
+              isCurrent ? 'text-emerald-100' : 'text-slate-400'
             }`}
           >
             <Clock className="w-3.5 h-3.5" />
@@ -117,17 +120,17 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
 
         {/* Предмет и кабинет */}
         <div className="flex items-start justify-between gap-2">
-          <div>
+          <div className="min-w-0 flex-1">
             <div className="flex items-center gap-2">
               <span
-                className={`text-xs font-black px-2 py-0.5 rounded-md flex items-center justify-center shadow-xs tracking-tight ${
-                  isCurrent ? 'bg-white text-emerald-700' : 'bg-emerald-600 text-white'
+                className={`text-xs font-black px-2 py-0.5 rounded-lg flex items-center justify-center tracking-tight ${
+                  isCurrent ? 'bg-white text-emerald-800 shadow-xs' : 'bg-emerald-600 text-white'
                 }`}
               >
                 {activeLesson.className || '?'}
               </span>
               <h3
-                className={`text-base font-bold tracking-tight ${
+                className={`text-base font-bold tracking-tight truncate ${
                   isCurrent ? 'text-white' : 'text-slate-800'
                 }`}
               >
@@ -139,10 +142,10 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
             {activeLesson.lessonType !== 'regular' && (
               <div className="mt-1.5 flex items-center gap-1.5">
                 <span
-                  className={`inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md ${
+                  className={`inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded-lg ${
                     isCurrent
-                      ? 'bg-white/25 text-white'
-                      : 'bg-purple-100 text-purple-800'
+                      ? 'bg-white/20 text-white'
+                      : 'bg-purple-50 text-purple-700 border border-purple-200/60'
                   }`}
                 >
                   {activeLesson.lessonType === 'lab' && <Microscope className="w-3 h-3" />}
@@ -169,23 +172,23 @@ export const CurrentLessonCard: React.FC<CurrentLessonCardProps> = ({
                   : 'text-slate-400 italic'
               }`}
             >
-              {activeLesson.topic || 'Тема ещё не записана (нажмите для ввода)'}
+              {activeLesson.topic || 'Записать тему урока...'}
             </p>
           </div>
 
-          {/* Номер урока и кабинет */}
-          <div className="flex flex-col items-end shrink-0">
+          {/* Кабинет и номер урока */}
+          <div className="flex flex-col items-end shrink-0 pl-2">
             <span
-              className={`text-xs font-semibold px-2 py-1 rounded-lg flex items-center gap-1 ${
-                isCurrent ? 'bg-white/15 text-white' : 'bg-slate-100 text-slate-700'
+              className={`text-xs font-medium px-2 py-1 rounded-lg flex items-center gap-1 ${
+                isCurrent ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-600'
               }`}
             >
-              <MapPin className="w-3 h-3" />
+              <MapPin className="w-3 h-3 opacity-80" />
               Каб. {activeLesson.room}
             </span>
             <span
-              className={`text-[10px] mt-1 font-medium ${
-                isCurrent ? 'text-emerald-200' : 'text-slate-400'
+              className={`text-[11px] mt-1 font-medium ${
+                isCurrent ? 'text-emerald-100' : 'text-slate-400'
               }`}
             >
               Урок №{activeLesson.lessonNumber}

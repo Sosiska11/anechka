@@ -5,7 +5,6 @@ import {
   MapPin,
   FileText,
   BookOpen,
-  HelpCircle,
   ChevronRight,
   Microscope,
   FlaskConical,
@@ -100,12 +99,9 @@ export const LessonCard: React.FC<LessonCardProps> = ({ lesson, onClick }) => {
             {lesson.topic}
           </p>
         ) : (
-          <div className="flex items-center gap-1.5 text-xs text-emerald-600 font-medium py-0.5">
-            <HelpCircle className="w-3.5 h-3.5 shrink-0 text-emerald-500" />
-            <span className="underline underline-offset-2 decoration-emerald-300">
-              Нажмите, чтобы записать тему
-            </span>
-          </div>
+          <p className="text-xs text-slate-400 font-normal italic py-0.5">
+            Записать тему урока...
+          </p>
         )}
       </div>
 

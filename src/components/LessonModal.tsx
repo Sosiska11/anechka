@@ -121,14 +121,28 @@ export const LessonModal: React.FC<LessonModalProps> = ({
 
         {/* Тело формы со скроллом */}
         <div className="p-5 space-y-4 overflow-y-auto">
-          {/* Выбор класса (5–11, А–Е) */}
+          {/* Выбор класса */}
           <div className="p-3 bg-slate-50/80 rounded-2xl border border-slate-200/80">
             <ClassSelector value={className} onChange={setClassName} />
           </div>
 
-          {/* 1. Тип урока */}
+          {/* Тема урока */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+            <label className="block text-xs font-bold text-slate-700 mb-1.5">
+              Тема урока
+            </label>
+            <textarea
+              rows={2}
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              placeholder="Например: Строение и функции клеточной мембраны..."
+              className="w-full px-3.5 py-2.5 text-sm font-medium bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all resize-none text-slate-800 placeholder-slate-400"
+            />
+          </div>
+
+          {/* Тип урока */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 mb-1.5">
               Тип урока
             </label>
             <div className="grid grid-cols-2 gap-1.5">
@@ -158,7 +172,7 @@ export const LessonModal: React.FC<LessonModalProps> = ({
                     onClick={() => setLessonType(item.type)}
                     className={`py-2 px-2.5 rounded-xl text-xs font-bold border flex items-center justify-center gap-1.5 transition-all active:scale-95 ${
                       isSelected
-                        ? 'bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs ring-1 ring-emerald-600/30'
+                        ? 'bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs'
                         : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                     }`}
                   >
@@ -170,24 +184,9 @@ export const LessonModal: React.FC<LessonModalProps> = ({
             </div>
           </div>
 
-          {/* 2. Тема урока */}
+          {/* Домашнее задание */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center justify-between">
-              <span>Тема урока</span>
-              <span className="text-[10px] text-emerald-600 font-semibold">Основное поле</span>
-            </label>
-            <textarea
-              rows={2}
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              placeholder="Например: Строение и функции клеточной мембраны..."
-              className="w-full px-3.5 py-2.5 text-sm font-medium bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all resize-none text-slate-800 placeholder-slate-400"
-            />
-          </div>
-
-          {/* 3. Домашнее задание */}
-          <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+            <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5 text-amber-500" />
               <span>Домашнее задание</span>
             </label>
@@ -195,29 +194,29 @@ export const LessonModal: React.FC<LessonModalProps> = ({
               type="text"
               value={homework}
               onChange={(e) => setHomework(e.target.value)}
-              placeholder="Параграф, вопросы, конспект в тетради..."
+              placeholder="Параграф, вопросы в тетради..."
               className="w-full px-3.5 py-2.5 text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all text-slate-800 placeholder-slate-400"
             />
           </div>
 
-          {/* 4. Заметки для себя */}
+          {/* Заметки */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5 flex items-center gap-1.5">
+            <label className="block text-xs font-bold text-slate-700 mb-1.5 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5 text-teal-600" />
-              <span>Заметки для себя</span>
+              <span>Заметки</span>
             </label>
             <textarea
               rows={2}
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Например: собрать тетради на проверку, подготовить карточки..."
+              placeholder="Собрать тетради, подготовить карточки..."
               className="w-full px-3.5 py-2.5 text-xs font-medium bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all resize-none text-slate-800 placeholder-slate-400"
             />
           </div>
 
-          {/* 5. Кабинет */}
+          {/* Кабинет */}
           <div>
-            <label className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+            <label className="block text-xs font-bold text-slate-700 mb-1.5">
               Кабинет
             </label>
             <input

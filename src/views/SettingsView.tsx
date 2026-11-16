@@ -242,15 +242,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
         </div>
       )}
 
-      {/* 1. Мой кабинет по умолчанию */}
+      {/* Кабинет по умолчанию */}
       <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+        <h2 className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
           <DoorOpen className="w-3.5 h-3.5 text-emerald-600" />
-          <span>Мой кабинет по умолчанию</span>
+          <span>Кабинет по умолчанию</span>
         </h2>
 
         <p className="text-xs text-slate-500 leading-relaxed">
-          Этот номер кабинета автоматически подставляется во все уроки и шаблоны недели:
+          Этот номер кабинета подставляется в уроки по умолчанию:
         </p>
 
         <div className="flex items-center gap-3 pt-1">
@@ -271,9 +271,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
         </div>
       </div>
 
-      {/* 2. Переключатель 6-дневной учебной недели */}
+      {/* Учебная неделя */}
       <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+        <h2 className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
           <Calendar className="w-3.5 h-3.5 text-emerald-600" />
           <span>Учебная неделя</span>
         </h2>
@@ -282,7 +282,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
           <div>
             <p className="text-sm font-bold text-slate-800">Показывать субботу</p>
             <p className="text-xs text-slate-400">
-              6-дневная учебная неделя в ленте и расписании
+              6-дневная учебная неделя в расписании
             </p>
           </div>
           <button
@@ -300,9 +300,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
         </div>
       </div>
 
-      {/* 3. Блок «Напоминания» (Локальные уведомления без интернета) */}
+      {/* Напоминания */}
       <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+        <h2 className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
           <Bell className="w-3.5 h-3.5 text-emerald-600" />
           <span>Напоминания</span>
         </h2>
@@ -313,7 +313,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
             <div>
               <p className="text-sm font-bold text-slate-800">Напоминать перед уроком</p>
               <p className="text-[11px] text-slate-400 leading-tight mt-0.5">
-                «Скоро урок (время) • Каб. {defaultRoom || '304'}» и тема урока, если заполнена
+                Время, кабинет и тема урока
               </p>
             </div>
             <button
@@ -333,7 +333,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
           {/* Выбор времени (5, 10 или 15 мин) при включённом напоминании */}
           {isLessonReminderOn && (
             <div className="pt-1.5">
-              <p className="text-xs font-semibold text-slate-600 mb-1.5">
+              <p className="text-xs font-medium text-slate-600 mb-1.5">
                 За сколько минут до звонка уведомлять:
               </p>
               <div className="grid grid-cols-3 gap-2">
@@ -346,7 +346,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
                       onClick={() => handleSetReminderMinutes(mins)}
                       className={`py-2 px-2 rounded-xl text-xs font-bold border transition-all active:scale-95 ${
                         isSelected
-                          ? 'bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs ring-1 ring-emerald-600/30'
+                          ? 'bg-emerald-50 border-emerald-600 text-emerald-800 shadow-xs'
                           : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
                       }`}
                     >
@@ -364,7 +364,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
           <div>
             <p className="text-sm font-bold text-slate-800">Вечернее напоминание в 19:00</p>
             <p className="text-[11px] text-slate-400 leading-tight mt-0.5">
-              «Проверьте темы уроков на завтра»
+              Напомнит проверить расписание и темы на завтра
             </p>
           </div>
           <button
@@ -405,17 +405,14 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
         </div>
       </div>
 
-      {/* 4. Блок «Резервные копии» */}
+      {/* Резервные копии */}
       <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-xs space-y-3.5">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
-          <span>Резервные копии</span>
-          <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200/60">
-            100% Offline
-          </span>
+        <h2 className="text-xs font-bold text-slate-700 flex items-center justify-between">
+          <span>Резервная копия</span>
         </h2>
 
         <p className="text-xs text-slate-500 leading-relaxed">
-          Сохраните файл со всеми уроками, расписанием, темами и заметками на устройство или скопируйте код для переноса в Telegram:
+          Сохраните файл со всеми уроками и темами на устройство или скопируйте текст в Telegram / заметки:
         </p>
 
         {/* Скрытый input для выбора файла .json */}
@@ -446,7 +443,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
           </button>
         </div>
 
-        {/* Кнопка «Скопировать код копии» (запасной вариант для мобильного WebView) */}
+        {/* Кнопка «Скопировать код копии» */}
         <button
           onClick={handleCopyBackupCode}
           className="w-full py-2.5 px-3 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 text-emerald-800 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition-all active:scale-95"
@@ -457,19 +454,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
             <Copy className="w-3.5 h-3.5 text-emerald-600" />
           )}
           <span>
-            {isCopied ? 'Код скопирован в буфер!' : 'Скопировать код копии (для Telegram / заметок)'}
+            {isCopied ? 'Копия скопирована в буфер!' : 'Скопировать текст копии (для Telegram / заметок)'}
           </span>
         </button>
       </div>
 
-      {/* 5. Сброс и демо-расписание */}
+      {/* Демо-данные */}
       <div className="bg-white p-4 rounded-3xl border border-slate-200/80 shadow-xs space-y-3">
-        <h2 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-          Сброс и демо-расписание
+        <h2 className="text-xs font-bold text-slate-700">
+          Демо-данные
         </h2>
 
         <p className="text-xs text-slate-500 leading-relaxed">
-          Перезагружает демонстрационное расписание уроков с темами и практическими работами.
+          Загружает пример расписания с готовыми темами уроков и практическими работами.
         </p>
 
         <button
@@ -477,7 +474,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ onResetData }) => {
           className="w-full py-3 px-4 rounded-2xl bg-slate-100 hover:bg-emerald-50 hover:text-emerald-800 hover:border-emerald-300 text-slate-700 font-bold text-xs flex items-center justify-center gap-2 border border-slate-200 transition-all active:scale-95"
         >
           <RotateCcw className="w-4 h-4 text-emerald-600" />
-          <span>Сбросить и загрузить демо-расписание</span>
+          <span>Сбросить и загрузить пример расписания</span>
         </button>
       </div>
 
